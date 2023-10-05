@@ -55,7 +55,7 @@ def freeversion():
           #  'canvas_api_token': api_token,
            # 'canvas_url': canvas_url,
             #'phone_number': phone_number
-        3})))
+        #})))
 
 
     
