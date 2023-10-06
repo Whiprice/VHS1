@@ -27,31 +27,17 @@ def thank_you():
 
 @app.route('/freeversion',methods=["GET", "POST"])
 def freeversion():
-    render_template('freeversion.html')
-    # Initialize MySQL database connection
-
-    db = mysql.connector.connect(
+    if request.method == "POST":
+        # Get user input from the form
+        db = mysql.connector.connect(
         username="doadmin",
         password="AVNS_iuOLTr_1rACvDK-o1Nl",
         host="athena-database-do-user-14760374-0.b.db.ondigitalocean.com",
         port=25060,
         database="defaultdb",
-        #sslmode="REQUIRED"
-    )
-    
-    cursor = db.cursor()
-    create_table_query = """
-        CREATE TABLE IF NOT EXISTS athenalite2 (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        canvas_url VARCHAR(255),
-        api_token VARCHAR(255),
-        phone_number VARCHAR(255)
-    )
-    """
-    cursor.execute(create_table_query)
-    if request.method == "POST":
-        # Get user input from the form
+    #sslmode="REQUIRED"
+        )
+        cursor = db.cursor()
         name = request.form["name"]
         canvas_url = request.form["canvas_url"]
         api_token = request.form["api_token"]
@@ -61,7 +47,6 @@ def freeversion():
         query = "INSERT INTO athenalite2 (name, canvas_url, api_token, phone_number) VALUES (%s, %s, %s, %s)"
         values = (name, canvas_url, api_token, phone_number)
         cursor.execute(query, values)
-        
         db.commit()
 
         
