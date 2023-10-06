@@ -15,11 +15,6 @@ db = mysql.connector.connect(
     database="defaultdb",
     #sslmode="REQUIRED"
 )
-# Check if the database connection is successful
-if db.is_connected():
-    print("Connected to the MySQL database!")
-else:
-    print("Failed to connect to the MySQL database.")
     
 cursor = db.cursor()
 create_table_query = """
@@ -68,7 +63,7 @@ def freeversion():
         query = "INSERT INTO athenalite2 (name, canvas_url, api_token, phone_number) VALUES (%s, %s, %s, %s)"
         values = (name, canvas_url, api_token, phone_number)
         cursor.execute(query, values)
-        print("Committing...")
+        
         db.commit()
 
         
