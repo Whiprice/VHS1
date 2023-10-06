@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 #import requests
-#import mysql.connector
+import mysql.connector
 import json
 
 app = Flask(__name__)
