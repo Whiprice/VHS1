@@ -7,10 +7,10 @@ app = Flask(__name__)
 
 # Initialize MySQL database connection
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Shane199!",
-    database="athenasql"
+    host="athena-database-do-user-14760374-0.b.db.ondigitalocean.com",
+    user="doadmin",
+    password="AVNS_iuOLTr_1rACvDK-o1Nl",
+    database="defaultdb"
 )
 cursor = db.cursor()
 
