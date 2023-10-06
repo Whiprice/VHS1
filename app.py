@@ -27,6 +27,7 @@ def thank_you():
 
 @app.route('/freeversion',methods=["GET", "POST"])
 def freeversion():
+    render_template('freeversion.html')
     # Initialize MySQL database connection
 
     db = mysql.connector.connect(
