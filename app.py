@@ -6,13 +6,34 @@ import json
 app = Flask(__name__)
 
 # Initialize MySQL database connection
+
 db = mysql.connector.connect(
-    host="athena-database-do-user-14760374-0.b.db.ondigitalocean.com",
-    user="doadmin",
+    username="doadmin",
     password="AVNS_iuOLTr_1rACvDK-o1Nl",
-    database="defaultdb"
+    host="athena-database-do-user-14760374-0.b.db.ondigitalocean.com",
+    port=25060,
+    database="defaultdb",
+    #sslmode="REQUIRED"
 )
+# Check if the database connection is successful
+if db.is_connected():
+    print("Connected to the MySQL database!")
+else:
+    print("Failed to connect to the MySQL database.")
+    
 cursor = db.cursor()
+create_table_query = """
+    CREATE TABLE IF NOT EXISTS athenalite2 (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        canvas_url VARCHAR(255),
+        api_token VARCHAR(255),
+        phone_number VARCHAR(255)
+    )
+    """
+cursor.execute(create_table_query)
+
+
 
 @app.route('/')
 def index():
@@ -44,19 +65,13 @@ def freeversion():
         phone_number = request.form["phone_number"]
         
         # Insert the user data into the MySQL database
-        query = "INSERT INTO users (name, canvas_url, api_token, phone_number) VALUES (%s, %s, %s, %s)"
+        query = "INSERT INTO athenalite2 (name, canvas_url, api_token, phone_number) VALUES (%s, %s, %s, %s)"
         values = (name, canvas_url, api_token, phone_number)
         cursor.execute(query, values)
+        print("Committing...")
         db.commit()
 
-        # Redirect to the "thank_you" route with student_data as a URL parameter
-        return redirect(url_for("thank_you", student_data=json.dumps({
-            'name': name,
-            'canvas_api_token': api_token,
-            'canvas_url': canvas_url,
-            'phone_number': phone_number
-        })))
-
+        
 
     
     return render_template('freeversion.html')
@@ -64,5 +79,7 @@ def freeversion():
 @app.route('/athenapro',methods=["GET", "POST"])
 def paidversion():
     return render_template('athenapro.html')
-if __name__ == '__main__':
+
+if __name__ == '__main__':    
     app.run(debug=True)
+
