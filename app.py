@@ -5,31 +5,6 @@ import json
 
 app = Flask(__name__)
 
-# Initialize MySQL database connection
-
-db = mysql.connector.connect(
-    username="doadmin",
-    password="AVNS_iuOLTr_1rACvDK-o1Nl",
-    host="athena-database-do-user-14760374-0.b.db.ondigitalocean.com",
-    port=25060,
-    database="defaultdb",
-    #sslmode="REQUIRED"
-)
-    
-cursor = db.cursor()
-create_table_query = """
-    CREATE TABLE IF NOT EXISTS athenalite2 (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        canvas_url VARCHAR(255),
-        api_token VARCHAR(255),
-        phone_number VARCHAR(255)
-    )
-    """
-cursor.execute(create_table_query)
-
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -52,6 +27,28 @@ def thank_you():
 
 @app.route('/freeversion',methods=["GET", "POST"])
 def freeversion():
+    # Initialize MySQL database connection
+
+    db = mysql.connector.connect(
+        username="doadmin",
+        password="AVNS_iuOLTr_1rACvDK-o1Nl",
+        host="athena-database-do-user-14760374-0.b.db.ondigitalocean.com",
+        port=25060,
+        database="defaultdb",
+        #sslmode="REQUIRED"
+    )
+    
+    cursor = db.cursor()
+    create_table_query = """
+        CREATE TABLE IF NOT EXISTS athenalite2 (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        canvas_url VARCHAR(255),
+        api_token VARCHAR(255),
+        phone_number VARCHAR(255)
+    )
+    """
+    cursor.execute(create_table_query)
     if request.method == "POST":
         # Get user input from the form
         name = request.form["name"]
