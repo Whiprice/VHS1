@@ -48,6 +48,9 @@ def freeversion():
         values = (name, canvas_url, api_token, phone_number)
         cursor.execute(query, values)
         db.commit()
+        # Close the database connection
+        db.close()
+        return render_template('thankyou.html')
 
         
 
