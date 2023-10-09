@@ -31,7 +31,7 @@ def thank_you():
 def sms_reply():
     
     # Initialize the OpenAI API with your API key
-    openai.api_key = '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'
+    openai.api_key = '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'
 
     # Get the incoming message from Twilio
     incoming_message = request.values.get("Body", "").strip()
