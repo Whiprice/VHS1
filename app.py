@@ -49,8 +49,11 @@ def sms_reply():
     # Create a Twilio response with the AI's response
     twilio_resp = MessagingResponse()
     twilio_resp.message(ai_response)
+    resp = MessagingResponse()
+    resp.message("The robots are coming, head for the hills!")
+    return str(resp)
 
-    return str(twilio_resp)
+    #return str(twilio_resp)
 
 @app.route('/freeversion',methods=["GET", "POST"])
 def freeversion():
