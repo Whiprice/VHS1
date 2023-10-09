@@ -27,7 +27,7 @@ def resume():
 def thank_you():
     return render_template('thankyou.html')
 
-@app.route("/sms", methods=['POST'])
+@app.route("/sms", methods=['GET','POST'])
 def sms_reply():
     
     # Initialize the OpenAI API with your API key
