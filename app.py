@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for
 import requests
 import mysql.connector
 import json
+from twilio.twiml.messaging_response import MessagingResponse
+import openai
 
 app = Flask(__name__)
 
@@ -24,6 +26,31 @@ def resume():
 @app.route('/thank_you')
 def thank_you():
     return render_template('thankyou.html')
+
+# Initialize the OpenAI API with your API key
+openai.api_key = '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'
+
+
+@app.route("/sms", methods=['POST'])
+def sms_reply():
+    # Get the incoming message from Twilio
+    incoming_message = request.values.get("Body", "").strip()
+
+    # Use the incoming message as the input to ChatGPT
+    response = openai.Completion.create(
+        engine="davinci",
+        prompt=f"User: {incoming_message}\nAI:",
+        max_tokens=50,  # Adjust the max tokens as needed
+    )
+
+    # Extract the AI's response from the API response
+    ai_response = response.choices[0].text.strip()
+
+    # Create a Twilio response with the AI's response
+    twilio_resp = MessagingResponse()
+    twilio_resp.message(ai_response)
+
+    return str(twilio_resp)
 
 @app.route('/freeversion',methods=["GET", "POST"])
 def freeversion():
@@ -63,4 +90,3 @@ def paidversion():
 
 if __name__ == '__main__':    
     app.run(debug=True)
-
