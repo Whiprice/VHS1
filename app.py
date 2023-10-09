@@ -27,12 +27,12 @@ def resume():
 def thank_you():
     return render_template('thankyou.html')
 
-# Initialize the OpenAI API with your API key
-openai.api_key = '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'
-
-
 @app.route("/sms", methods=['POST'])
 def sms_reply():
+    
+    # Initialize the OpenAI API with your API key
+    openai.api_key = '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'
+
     # Get the incoming message from Twilio
     incoming_message = request.values.get("Body", "").strip()
 
