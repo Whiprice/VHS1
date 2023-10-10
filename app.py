@@ -39,7 +39,7 @@ def sms_reply():
 
     # Use the incoming message as the input to ChatGPT
     response = openai.Completion.create(
-        engine="davinci",
+        engine="text-davinci-003",
         prompt=f"tell me a joke",
         max_tokens=100,  # Adjust the max tokens as needed
     )
