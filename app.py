@@ -40,8 +40,8 @@ def sms_reply():
     # Use the incoming message as the input to ChatGPT
     response = openai.Completion.create(
         engine="text-davinci-003",
-        prompt=f"User: {incoming_message}\nAI:",
-        max_tokens=10000,  # Adjust the max tokens as needed
+        prompt=f"{incoming_message}\n:",
+        max_tokens=100000,  # Adjust the max tokens as needed
     )
 
     # Extract the AI's response from the API response
