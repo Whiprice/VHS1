@@ -41,7 +41,7 @@ def sms_reply():
     response = openai.Completion.create(
         engine="text-davinci-003",
         prompt=f"{incoming_message}\n:",
-        max_tokens=100000,  # Adjust the max tokens as needed
+        max_tokens=4000,  # Adjust the max tokens as needed
     )
 
     # Extract the AI's response from the API response
