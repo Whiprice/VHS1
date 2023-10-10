@@ -31,29 +31,29 @@ def thank_you():
 def sms_reply():
     
     # Initialize the OpenAI API with your API key
-    #openai.api_key = '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'
+    openai.api_key =  os.getenv("openaikey")
 
     # Get the incoming message from Twilio
-    #incoming_message = request.values.get("Body", "").strip()
+    incoming_message = request.values.get("Body", "").strip()
 
     # Use the incoming message as the input to ChatGPT
-    #response = openai.Completion.create(
-        #engine="davinci",
-        #prompt=f"User: {incoming_message}\nAI:",
-        #max_tokens=50,  # Adjust the max tokens as needed
-    #)
+    response = openai.Completion.create(
+        engine="davinci",
+        prompt=f"User: {incoming_message}\nAI:",
+        max_tokens=50,  # Adjust the max tokens as needed
+    )
 
     # Extract the AI's response from the API response
-    #ai_response = response.choices[0].text.strip()
+    ai_response = response.choices[0].text.strip()
 
     # Create a Twilio response with the AI's response
-    #twilio_resp = MessagingResponse()
-    #twilio_resp.message(ai_response)
-    resp = MessagingResponse()
-    resp.message("The robots are coming, head for the hills!")
-    return str(resp)
+    twilio_resp = MessagingResponse()
+    twilio_resp.message(ai_response)
+    #resp = MessagingResponse()
+    #resp.message("The robots are coming, head for the hills!")
+    #return str(resp)
 
-    #return str(twilio_resp)
+    return str(twilio_resp)
 
 @app.route('/freeversion',methods=["GET", "POST"])
 def freeversion():
