@@ -88,6 +88,10 @@ def freeversion():
     
     return render_template('freeversion.html')
 
+@app.route('/audio/<path:filename>')
+def serve_audio(filename):
+    return send_from_directory('audio', filename)
+
 @app.route('/athenapro',methods=["GET", "POST"])
 def paidversion():
     return render_template('athenapro.html')
