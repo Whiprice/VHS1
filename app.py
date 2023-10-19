@@ -58,34 +58,7 @@ def sms_reply():
 
 @app.route('/freeversion',methods=["GET", "POST"])
 def freeversion():
-    if request.method == "POST":
-        # Get user input from the form
-        db = mysql.connector.connect(
-        username="doadmin",
-        password="AVNS_iuOLTr_1rACvDK-o1Nl",
-        host="athena-database-do-user-14760374-0.b.db.ondigitalocean.com",
-        port=25060,
-        database="defaultdb",
-    #sslmode="REQUIRED"
-        )
-        cursor = db.cursor()
-        name = request.form["name"]
-        canvas_url = request.form["canvas_url"]
-        api_token = request.form["api_token"]
-        phone_number = request.form["phone_number"]
-        
-        # Insert the user data into the MySQL database
-        query = "INSERT INTO athenalite2 (name, canvas_url, api_token, phone_number) VALUES (%s, %s, %s, %s)"
-        values = (name, canvas_url, api_token, phone_number)
-        cursor.execute(query, values)
-        db.commit()
-        # Close the database connection
-        db.close()
-        return render_template('thankyou.html')
 
-        
-
-    
     return render_template('freeversion.html')
 
 @app.route('/audio/<path:filename>')
